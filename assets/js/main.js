@@ -38,19 +38,37 @@
     const heroPeriod = $('#hero-period');
     if (heroPeriod) heroPeriod.textContent = `工期 ${formatTermJP(data.term)}`;
 
+    const statsEl = $('#about-stats');
+    if (statsEl && Array.isArray(data.highlights)) {
+      statsEl.innerHTML = data.highlights.map((h) => {
+        const numeric = String(h.value).replace(/[^\d.\-]/g, '');
+        const isNumeric = numeric !== '' && !Number.isNaN(Number(numeric));
+        const countAttr = isNumeric ? `data-count="${numeric}" data-format="${String(h.value).includes(',') ? '0,0' : ''}"` : '';
+        const displayValue = isNumeric ? '0' : escapeHtml(h.value);
+        return `
+          <div class="stat-card">
+            <p class="stat-card__label">${escapeHtml(h.label || '')}</p>
+            <p class="stat-card__value" ${countAttr}>${displayValue}${h.unit ? `<span class="stat-card__unit">${escapeHtml(h.unit)}</span>` : ''}</p>
+            <p class="stat-card__note">${escapeHtml(h.note || '')}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
     const aboutList = $('#about-list');
     if (aboutList) {
       const rows = [
-        ['工事名',   data.name],
-        ['発注者',   data.client],
-        ['施工',     data.contractor],
-        ['工事場所', data.location],
-        ['工期',     formatTermJP(data.term)],
-        ['主な工種', Array.isArray(data.main_works) ? data.main_works.join(' ／ ') : ''],
+        ['工事名',     data.name],
+        ['発注者',     data.client],
+        ['施工',       data.contractor],
+        ['工事場所',   data.location],
+        ['工期',       formatTermJP(data.term)],
+        ['工事概要',   data.summary],
+        ['主な工種',   Array.isArray(data.main_works) ? `<ul class="about-list__bullets">${data.main_works.map(w => `<li>${escapeHtml(w)}</li>`).join('')}</ul>` : ''],
       ].filter(([, v]) => v);
 
       aboutList.innerHTML = rows
-        .map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`)
+        .map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${k === '主な工種' ? v : escapeHtml(v)}</dd>`)
         .join('');
     }
 
@@ -149,71 +167,70 @@
     go(0);
   }
 
-  /* ---- Render: Gallery with month tabs ---- */
-  let galleryAlbums = [];
-  let galleryActiveMonth = '';
-
-  function renderGalleryAlbum(album) {
-    const gallery = $('#gallery');
-    if (!gallery) return;
-    if (!album || !Array.isArray(album.items) || album.items.length === 0) {
-      gallery.innerHTML = '<p>写真を準備中です。</p>';
+  /* ---- Render: Milestone strip ---- */
+  function renderMilestoneStrip(data) {
+    const strip = $('#milestone-strip');
+    if (!strip) return;
+    const items = (data?.items || []).slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+    if (items.length === 0) {
+      strip.innerHTML = '';
       return;
     }
-    gallery.innerHTML = album.items.map((p) => `
-      <button type="button" class="gallery__item"
+    strip.innerHTML = items.map((p) => `
+      <button type="button" class="milestone"
               data-src="${escapeHtml(p.src)}"
               data-caption="${escapeHtml(p.caption || '')}"
-              aria-label="拡大表示: ${escapeHtml(p.caption || '写真')}">
-        <img src="${escapeHtml(p.thumb || p.src)}"
-             alt="${escapeHtml(p.caption || '現場写真')}" loading="lazy" />
-        ${p.caption ? `<span class="gallery__caption">${escapeHtml(p.caption)}</span>` : ''}
+              aria-label="拡大: ${escapeHtml(p.caption || '写真')}">
+        <span class="milestone__tag">${escapeHtml(p.tag || 'PHOTO')}</span>
+        <img src="${escapeHtml(p.thumb || p.src)}" alt="${escapeHtml(p.caption || '')}" loading="lazy" />
+        <div class="milestone__meta">
+          <span class="milestone__date">${escapeHtml(formatDateJP(p.date))}</span>
+          <span class="milestone__caption">${escapeHtml(p.caption || '')}</span>
+        </div>
       </button>
     `).join('');
 
-    $$('.gallery__item', gallery).forEach(btn => {
+    $$('.milestone', strip).forEach((btn) => {
       btn.addEventListener('click', () => openLightbox(btn.dataset.src, btn.dataset.caption));
     });
   }
 
-  function renderGallery(data) {
-    const tabsEl = $('#gallery-tabs');
-    const gallery = $('#gallery');
-    if (!gallery || !tabsEl) return;
+  /* ---- Render: Weekly progress ---- */
+  function renderWeekly(data) {
+    const list = $('#weekly-list');
+    const src = $('#weekly-source');
+    if (!list) return;
+    if (src && data?.source) src.textContent = data.source;
 
-    if (!data || !Array.isArray(data.albums) || data.albums.length === 0) {
-      tabsEl.innerHTML = '';
-      gallery.innerHTML = '<p>写真を準備中です。</p>';
+    const weeks = data?.weeks || [];
+    if (weeks.length === 0) {
+      list.innerHTML = '<p>準備中です。</p>';
       return;
     }
 
-    galleryAlbums = data.albums.slice().sort((a, b) => (b.month || '').localeCompare(a.month || ''));
-    galleryActiveMonth = galleryAlbums[0]?.month || '';
-
-    tabsEl.innerHTML = galleryAlbums.map((alb) => `
-      <button type="button" class="gallery-tab ${alb.month === galleryActiveMonth ? 'is-active' : ''}"
-              data-month="${escapeHtml(alb.month)}" role="tab"
-              aria-selected="${alb.month === galleryActiveMonth ? 'true' : 'false'}">
-        <span class="gallery-tab__label">${escapeHtml(alb.label || alb.month)}</span>
-        <span class="gallery-tab__count">${alb.items?.length || 0}枚</span>
-      </button>
+    list.innerHTML = weeks.map((w, idx) => `
+      <article class="weekly ${idx === 0 ? 'is-latest' : ''}">
+        <div class="weekly__meta">
+          ${idx === 0 ? '<span class="weekly__badge">LATEST</span>' : ''}
+          <p class="weekly__range">${escapeHtml(w.label || w.range || '')}</p>
+          <h4 class="weekly__title">${escapeHtml(w.title || '')}</h4>
+          <ul class="weekly__bullets">
+            ${(w.highlights || []).map(h => `<li>${escapeHtml(h)}</li>`).join('')}
+          </ul>
+        </div>
+        ${w.img ? `
+        <button type="button" class="weekly__img"
+                data-src="${escapeHtml(w.img)}"
+                data-caption="${escapeHtml(w.title || '')}"
+                aria-label="拡大: ${escapeHtml(w.title || '写真')}">
+          <img src="${escapeHtml(w.img)}" alt="${escapeHtml(w.title || '')}" loading="lazy" />
+        </button>` : ''}
+      </article>
     `).join('');
 
-    $$('.gallery-tab', tabsEl).forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const month = btn.dataset.month;
-        galleryActiveMonth = month;
-        $$('.gallery-tab', tabsEl).forEach((b) => {
-          const on = b.dataset.month === month;
-          b.classList.toggle('is-active', on);
-          b.setAttribute('aria-selected', on ? 'true' : 'false');
-        });
-        const album = galleryAlbums.find((a) => a.month === month);
-        renderGalleryAlbum(album);
-      });
+    $$('.weekly__img', list).forEach((btn) => {
+      btn.addEventListener('click', () => openLightbox(btn.dataset.src, btn.dataset.caption));
     });
-
-    renderGalleryAlbum(galleryAlbums[0]);
   }
 
   /* ---- Render: News + Signage ---- */
@@ -543,7 +560,7 @@
 
     setupLightbox();
 
-    const [project, progress, photos, news, vision, dump, hero, team] = await Promise.all([
+    const [project, progress, photos, news, vision, dump, hero, team, weekly] = await Promise.all([
       loadJSON('data/project.json'),
       loadJSON('data/progress.json'),
       loadJSON('data/photos.json'),
@@ -552,12 +569,14 @@
       loadJSON('data/dump.json'),
       loadJSON('data/hero.json'),
       loadJSON('data/team.json'),
+      loadJSON('data/weekly.json'),
     ]);
 
     renderHero(hero);
     renderProject(project);
     renderProgress(progress);
-    renderGallery(photos);
+    renderMilestoneStrip(photos);
+    renderWeekly(weekly);
     renderNews(news);
     renderVision(vision);
     renderDump(dump);

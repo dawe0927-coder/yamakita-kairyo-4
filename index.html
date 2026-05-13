@@ -18,11 +18,16 @@
 
   <header class="site-header">
     <div class="container site-header__inner">
-      <p class="site-header__sub">国土交通省 中国地方整備局 福山河川国道事務所 発注</p>
-      <p class="site-header__title-en">YAMAKITA #4 ROAD IMPROVEMENT // FY2025</p>
-      <h1 class="site-header__title">令和7年度 福山道路<br>山北第4改良工事</h1>
-      <p class="site-header__contractor">SITE OPERATED BY 株式会社 鴻治組</p>
-      <nav class="site-nav" aria-label="ページ内ナビゲーション">
+      <div class="site-header__top">
+        <span class="site-header__client">国土交通省 中国地方整備局 福山河川国道事務所 発注</span>
+        <span class="site-header__divider" aria-hidden="true">|</span>
+        <span class="site-header__contractor">施工 株式会社 鴻治組</span>
+      </div>
+      <p class="site-header__eyebrow">YAMAKITA #4 ROAD IMPROVEMENT &middot; FY2025</p>
+      <h1 class="site-header__title">令和7年度 福山道路 山北第4改良工事</h1>
+    </div>
+    <nav class="site-nav" aria-label="ページ内ナビゲーション">
+      <div class="container site-nav__inner">
         <a href="#about">概要</a>
         <a href="#image">完成イメージ</a>
         <a href="#dump">運行管理</a>
@@ -30,8 +35,8 @@
         <a href="#team">施工体制</a>
         <a href="#news">お知らせ</a>
         <a href="#contact">連絡先</a>
-      </nav>
-    </div>
+      </div>
+    </nav>
   </header>
 
   <section class="hero" id="hero" aria-label="現場ヒーロー画像">
@@ -58,27 +63,8 @@
           地域の皆様の生活道路と並行して工事を進めますので、ご不便をおかけしますがご協力をお願いいたします。
         </p>
 
-        <div class="about-stats reveal" data-delay="2">
-          <div class="stat-card">
-            <p class="stat-card__label">SECTION LENGTH</p>
-            <p class="stat-card__value" data-count="350" data-suffix="">0<span class="stat-card__unit">m</span></p>
-            <p class="stat-card__note">工事延長</p>
-          </div>
-          <div class="stat-card">
-            <p class="stat-card__label">EXCAVATION</p>
-            <p class="stat-card__value" data-count="42000" data-format="0,0">0<span class="stat-card__unit">m³</span></p>
-            <p class="stat-card__note">掘削土量</p>
-          </div>
-          <div class="stat-card">
-            <p class="stat-card__label">CLEARING</p>
-            <p class="stat-card__value" data-count="10000" data-format="0,0">0<span class="stat-card__unit">m²</span></p>
-            <p class="stat-card__note">伐採面積</p>
-          </div>
-          <div class="stat-card">
-            <p class="stat-card__label">ICT LEVEL</p>
-            <p class="stat-card__value" data-count="4" data-suffix="">0<span class="stat-card__unit">/ 5</span></p>
-            <p class="stat-card__note">ICT施工段階</p>
-          </div>
+        <div class="about-stats reveal" data-delay="2" id="about-stats">
+          <!-- main.js が data/project.json highlights[] から生成 -->
         </div>
 
         <dl class="about-list reveal" data-delay="3" id="about-list">
@@ -168,17 +154,27 @@
         <h2 class="section__title reveal">
           <span class="section__num">// 04</span>現場進捗
         </h2>
-        <p class="section__lead reveal" data-delay="1">月ごとの主な進捗と現場写真を掲載しています。</p>
+        <p class="section__lead reveal" data-delay="1">
+          毎週開催している工程会議資料に基づき、主な進捗と現場写真を時系列で公開しています。
+        </p>
 
         <div class="progress-card reveal" data-delay="2" id="progress-card">
-          <!-- main.js が data/progress.json を読んで生成 -->
+          <!-- main.js が data/progress.json から生成 -->
         </div>
 
-        <div class="gallery-tabs reveal" data-delay="3" id="gallery-tabs" role="tablist">
-          <!-- main.js が data/photos.json から月別タブを生成 -->
+        <div class="milestone-strip reveal" data-delay="2" id="milestone-strip" aria-label="マイルストーン写真">
+          <!-- main.js が data/photos.json から日付別代表写真を生成 -->
         </div>
-        <div class="gallery reveal" data-delay="3" id="gallery" role="list">
-          <!-- main.js が data/photos.json から選択月のアルバムを描画 -->
+
+        <h3 class="subsection-title reveal" data-delay="3">
+          <span class="subsection-title__num">WEEKLY</span>週次進捗ハイライト
+        </h3>
+        <p class="section__lead reveal" data-delay="3" id="weekly-source">
+          <!-- main.js が data/weekly.json source から生成 -->
+        </p>
+
+        <div class="weekly-list reveal" data-delay="3" id="weekly-list">
+          <!-- main.js が data/weekly.json weeks[] から生成 -->
         </div>
       </div>
     </section>
