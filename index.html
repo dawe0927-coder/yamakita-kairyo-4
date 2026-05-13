@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="令和7年度 福山道路 山北第4改良工事の現場情報を近隣住民の皆様へお知らせするページです。工事概要・完成イメージ・現場進捗・お知らせを掲載しています。" />
+  <meta name="theme-color" content="#0B1733" />
+  <meta property="og:title" content="令和7年度 福山道路 山北第4改良工事" />
+  <meta property="og:description" content="福山道路 山北第4改良工事の現場専用ページ。BIM/CIM・ICT施工段階4・CCUS推進モデル工事。" />
+  <meta property="og:type" content="website" />
+  <title>令和7年度 福山道路 山北第4改良工事｜近隣の皆様へ</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="assets/img/icon/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+
+  <div class="bg-fx" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <p class="site-header__sub">国土交通省 中国地方整備局 福山河川国道事務所 発注</p>
+      <p class="site-header__title-en">YAMAKITA #4 ROAD IMPROVEMENT // FY2025</p>
+      <h1 class="site-header__title">令和7年度 福山道路<br>山北第4改良工事</h1>
+      <p class="site-header__contractor">SITE OPERATED BY 株式会社 鴻治組</p>
+      <nav class="site-nav" aria-label="ページ内ナビゲーション">
+        <a href="#about">概要</a>
+        <a href="#image">完成イメージ</a>
+        <a href="#dump">運行管理</a>
+        <a href="#progress">進捗</a>
+        <a href="#news">お知らせ</a>
+        <a href="#contact">連絡先</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="hero" aria-label="現場ヒーロー画像">
+    <picture>
+      <img src="assets/img/hero/aerial.jpg"
+           alt="山北第4改良工事の現場空撮写真。工事延長350mの工区全景。"
+           loading="eager"
+           width="1600" height="900" />
+    </picture>
+    <div class="hero__caption">
+      <p class="hero__label">CONSTRUCTION SITE</p>
+      <p class="hero__period" id="hero-period">工期 ―― 取得中</p>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">SCROLL</div>
+  </section>
+
+  <main>
+
+    <section class="section section--about" id="about">
+      <div class="container">
+        <h2 class="section__title reveal">
+          <span class="section__num">// 01</span>工事概要
+        </h2>
+        <p class="section__lead reveal" data-delay="1">
+          国道2号バイパスとして整備が進められている「福山道路」の山岳部切土区間です。
+          地域の皆様の生活道路と並行して工事を進めますので、ご不便をおかけしますがご協力をお願いいたします。
+        </p>
+
+        <div class="about-stats reveal" data-delay="2">
+          <div class="stat-card">
+            <p class="stat-card__label">SECTION LENGTH</p>
+            <p class="stat-card__value" data-count="350" data-suffix="">0<span class="stat-card__unit">m</span></p>
+            <p class="stat-card__note">工事延長</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__label">EXCAVATION</p>
+            <p class="stat-card__value" data-count="42000" data-format="0,0">0<span class="stat-card__unit">m³</span></p>
+            <p class="stat-card__note">掘削土量</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__label">CLEARING</p>
+            <p class="stat-card__value" data-count="10000" data-format="0,0">0<span class="stat-card__unit">m²</span></p>
+            <p class="stat-card__note">伐採面積</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__label">ICT LEVEL</p>
+            <p class="stat-card__value" data-count="4" data-suffix="">0<span class="stat-card__unit">/ 5</span></p>
+            <p class="stat-card__note">ICT施工段階</p>
+          </div>
+        </div>
+
+        <dl class="about-list reveal" data-delay="3" id="about-list">
+          <!-- main.js が data/project.json を読んで生成 -->
+        </dl>
+
+        <div class="reveal" data-delay="4">
+          <a class="btn btn--orange" href="docs/ichizu.pdf" target="_blank" rel="noopener">
+            位置図PDFを開く
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark section--image" id="image">
+      <div class="container">
+        <h2 class="section__title reveal">
+          <span class="section__num">// 02</span>完成イメージ
+        </h2>
+        <p class="section__lead reveal" data-delay="1">
+          BIM/CIM と ICT施工 段階4 を活用し、3次元設計データに基づく高精度な施工を行っています。
+          完成後は山岳部を切り開いた切土区間として、福山道路の整備に資する道路改良となります。
+        </p>
+
+        <div class="slider reveal" data-delay="2" id="vision-slider">
+          <div class="slider__track" id="vision-track">
+            <!-- main.js が data/vision.json を読んで生成 -->
+          </div>
+          <div class="slider__controls" id="vision-controls"></div>
+        </div>
+
+        <div class="feature-grid reveal" data-delay="3">
+          <article class="feature-card">
+            <span class="feature-card__tag">BIM / CIM</span>
+            <h3 class="feature-card__title">3次元モデル設計・施工</h3>
+            <p class="feature-card__body">詳細度200〜300の3次元モデルで設計・施工管理を実施。図面と現場のずれをなくします。</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-card__tag">ICT LEVEL 4</span>
+            <h3 class="feature-card__title">UAV測量 × ICT建機</h3>
+            <p class="feature-card__body">DJI Mavic 3 Enterprise RTK で起工測量を行い、3DマシンガイダンスのICT建機で施工。点群による出来形管理まで一気通貫。</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-card__tag">CCUS</span>
+            <h3 class="feature-card__title">建設キャリアアップシステム</h3>
+            <p class="feature-card__body">登録事業者率90%以上・登録技能者率80%以上を目指す活用推進モデル工事。建設業の働き方改革に貢献します。</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-card__tag">SAFETY</span>
+            <h3 class="feature-card__title">運搬路 安全対策</h3>
+            <p class="feature-card__body">通学時間帯の運搬禁止／工事用道路20km/h厳守／交通誘導員配置で、地域の安全を最優先に施工します。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dump" id="dump">
+      <div class="container">
+        <h2 class="section__title reveal">
+          <span class="section__num">// 03</span>ダンプ運行管理
+        </h2>
+        <p class="section__lead reveal" data-delay="1">
+          残土搬出のため <strong>10tダンプトラック</strong> が現場に頻繁に出入りします。
+          地域の皆様の安全を最優先に、以下のルールを厳守して運行しています。
+        </p>
+
+        <div class="dump-alert reveal" data-delay="1" id="dump-alert">
+          <!-- main.js が data/dump.json から生成 -->
+        </div>
+
+        <div class="dump-rules reveal" data-delay="2" id="dump-rules">
+          <!-- main.js が data/dump.json rules[] から生成 -->
+        </div>
+
+        <figure class="dump-map reveal" data-delay="2" id="dump-map">
+          <!-- main.js が data/dump.json map から生成 -->
+        </figure>
+
+        <div class="dump-considerations reveal" data-delay="3" id="dump-considerations">
+          <!-- main.js が data/dump.json considerations[] から生成 -->
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--progress" id="progress">
+      <div class="container">
+        <h2 class="section__title reveal">
+          <span class="section__num">// 04</span>現場進捗
+        </h2>
+        <p class="section__lead reveal" data-delay="1">月ごとの主な進捗と現場写真を掲載しています。</p>
+
+        <div class="progress-card reveal" data-delay="2" id="progress-card">
+          <!-- main.js が data/progress.json を読んで生成 -->
+        </div>
+
+        <div class="gallery reveal" data-delay="3" id="gallery" role="list">
+          <!-- main.js が data/photos.json を読んで生成 -->
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--news" id="news">
+      <div class="container">
+        <h2 class="section__title reveal">
+          <span class="section__num">// 05</span>お知らせ
+        </h2>
+        <p class="section__lead reveal" data-delay="1">
+          近隣の皆様へお知らせする工事連絡・通行規制・夜間作業等の情報を掲載します。
+        </p>
+
+        <div class="news-grid reveal" data-delay="2" id="news-list">
+          <!-- main.js が data/news.json を読んで生成 -->
+        </div>
+
+        <div class="signage-strip reveal" data-delay="3" id="signage-strip">
+          <!-- main.js が data/news.json signage[] を読んで生成 -->
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--contact" id="contact">
+      <div class="container">
+        <h2 class="section__title reveal">
+          <span class="section__num">// 06</span>お問い合わせ
+        </h2>
+        <p class="section__lead reveal" data-delay="1">
+          工事に関するご質問・ご相談は下記までお気軽にご連絡ください。
+        </p>
+
+        <div class="contact-card reveal" data-delay="2" id="contact-card">
+          <!-- main.js が data/project.json contact を読んで生成 -->
+        </div>
+
+        <p class="contact-note reveal" data-delay="3">
+          ※受付時間 平日 8:00〜17:00 ／ 休日・夜間は会社代表電話の音声案内をご確認ください。
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__brand">株式会社 鴻治組 — 一歩先の建設へ。</p>
+      <p class="site-footer__copy">&copy; <span id="copy-year">2026</span> KOUJIGUMI CO., LTD. ALL RIGHTS RESERVED.</p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="拡大写真" hidden>
+    <button class="lightbox__close" type="button" aria-label="閉じる">&times;</button>
+    <img class="lightbox__img" alt="" />
+    <p class="lightbox__caption"></p>
+  </div>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

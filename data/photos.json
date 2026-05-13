@@ -1,0 +1,35 @@
+{
+  "updated": "2026-04-28",
+  "albums": [
+    {
+      "month": "2026-04",
+      "label": "令和8年4月",
+      "items": [
+        {
+          "src":   "assets/img/progress/2026-04/aerial_01.jpg",
+          "thumb": "assets/img/progress/2026-04/_thumb/aerial_01.jpg",
+          "caption": "工区全景（空撮・令和8年4月28日）",
+          "taken": "2026-04-28"
+        },
+        {
+          "src":   "assets/img/progress/2026-04/aerial_02.jpg",
+          "thumb": "assets/img/progress/2026-04/_thumb/aerial_02.jpg",
+          "caption": "工区東側より（空撮）",
+          "taken": "2026-04-28"
+        },
+        {
+          "src":   "assets/img/progress/2026-04/aerial_03.jpg",
+          "thumb": "assets/img/progress/2026-04/_thumb/aerial_03.jpg",
+          "caption": "伐採状況（空撮）",
+          "taken": "2026-04-28"
+        },
+        {
+          "src":   "assets/img/progress/2026-04/aerial_04.jpg",
+          "thumb": "assets/img/progress/2026-04/_thumb/aerial_04.jpg",
+          "caption": "工区西側より（空撮）",
+          "taken": "2026-04-28"
+        }
+      ]
+    }
+  ]
+}

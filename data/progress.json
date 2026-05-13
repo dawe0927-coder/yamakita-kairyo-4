@@ -1,0 +1,10 @@
+{
+  "asOf": "2026-04-30",
+  "overall": 12,
+  "items": [
+    { "name": "準備工",   "plan": 100, "actual": 100 },
+    { "name": "伐採工",   "plan": 100, "actual": 95 },
+    { "name": "掘削工",   "plan": 5,   "actual": 3 },
+    { "name": "残土搬出", "plan": 5,   "actual": 2 }
+  ]
+}

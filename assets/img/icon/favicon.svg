@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="8" fill="#1B2A4A"/>
+  <path d="M12 44 L24 28 L34 38 L46 22 L52 22 L52 48 L12 48 Z" fill="#E87C3E"/>
+  <text x="32" y="20" font-family="sans-serif" font-size="12" font-weight="700"
+        text-anchor="middle" fill="#FAFAF7">山北4</text>
+</svg>
