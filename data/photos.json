@@ -2,33 +2,27 @@
   "updated": "2026-04-28",
   "albums": [
     {
+      "month": "2026-03",
+      "label": "令和8年3月",
+      "items": [
+        { "src": "assets/img/progress/2026-03/aerial_01.jpg", "thumb": "assets/img/progress/2026-03/_thumb/aerial_01.jpg", "caption": "着工前 工区全景（3/2）",       "taken": "2026-03-02" },
+        { "src": "assets/img/progress/2026-03/aerial_02.jpg", "thumb": "assets/img/progress/2026-03/_thumb/aerial_02.jpg", "caption": "着工前の現場（3/2）",         "taken": "2026-03-02" },
+        { "src": "assets/img/progress/2026-03/aerial_03.jpg", "thumb": "assets/img/progress/2026-03/_thumb/aerial_03.jpg", "caption": "根株調査（3/31）",           "taken": "2026-03-31" },
+        { "src": "assets/img/progress/2026-03/aerial_04.jpg", "thumb": "assets/img/progress/2026-03/_thumb/aerial_04.jpg", "caption": "根株調査 別アングル（3/31）", "taken": "2026-03-31" }
+      ]
+    },
+    {
       "month": "2026-04",
       "label": "令和8年4月",
       "items": [
-        {
-          "src":   "assets/img/progress/2026-04/aerial_01.jpg",
-          "thumb": "assets/img/progress/2026-04/_thumb/aerial_01.jpg",
-          "caption": "工区全景（空撮・令和8年4月28日）",
-          "taken": "2026-04-28"
-        },
-        {
-          "src":   "assets/img/progress/2026-04/aerial_02.jpg",
-          "thumb": "assets/img/progress/2026-04/_thumb/aerial_02.jpg",
-          "caption": "工区東側より（空撮）",
-          "taken": "2026-04-28"
-        },
-        {
-          "src":   "assets/img/progress/2026-04/aerial_03.jpg",
-          "thumb": "assets/img/progress/2026-04/_thumb/aerial_03.jpg",
-          "caption": "伐採状況（空撮）",
-          "taken": "2026-04-28"
-        },
-        {
-          "src":   "assets/img/progress/2026-04/aerial_04.jpg",
-          "thumb": "assets/img/progress/2026-04/_thumb/aerial_04.jpg",
-          "caption": "工区西側より（空撮）",
-          "taken": "2026-04-28"
-        }
+        { "src": "assets/img/progress/2026-04/aerial_05.jpg", "thumb": "assets/img/progress/2026-04/_thumb/aerial_05.jpg", "caption": "伐採状況（4/20）",            "taken": "2026-04-20" },
+        { "src": "assets/img/progress/2026-04/aerial_06.jpg", "thumb": "assets/img/progress/2026-04/_thumb/aerial_06.jpg", "caption": "伐採進捗（4/20）",            "taken": "2026-04-20" },
+        { "src": "assets/img/progress/2026-04/aerial_07.jpg", "thumb": "assets/img/progress/2026-04/_thumb/aerial_07.jpg", "caption": "工事看板設置完了（4/24）",     "taken": "2026-04-24" },
+        { "src": "assets/img/progress/2026-04/aerial_08.jpg", "thumb": "assets/img/progress/2026-04/_thumb/aerial_08.jpg", "caption": "看板周辺の現場状況（4/24）",   "taken": "2026-04-24" },
+        { "src": "assets/img/progress/2026-04/aerial_01.jpg", "thumb": "assets/img/progress/2026-04/_thumb/aerial_01.jpg", "caption": "工区全景（4/28 空撮）",        "taken": "2026-04-28" },
+        { "src": "assets/img/progress/2026-04/aerial_02.jpg", "thumb": "assets/img/progress/2026-04/_thumb/aerial_02.jpg", "caption": "工区東側より（4/28 空撮）",     "taken": "2026-04-28" },
+        { "src": "assets/img/progress/2026-04/aerial_03.jpg", "thumb": "assets/img/progress/2026-04/_thumb/aerial_03.jpg", "caption": "伐採状況（4/28 空撮）",        "taken": "2026-04-28" },
+        { "src": "assets/img/progress/2026-04/aerial_04.jpg", "thumb": "assets/img/progress/2026-04/_thumb/aerial_04.jpg", "caption": "工区西側より（4/28 空撮）",     "taken": "2026-04-28" }
       ]
     }
   ]

@@ -27,6 +27,7 @@
         <a href="#image">完成イメージ</a>
         <a href="#dump">運行管理</a>
         <a href="#progress">進捗</a>
+        <a href="#team">施工体制</a>
         <a href="#news">お知らせ</a>
         <a href="#contact">連絡先</a>
       </nav>
@@ -34,16 +35,14 @@
   </header>
 
   <section class="hero" id="hero" aria-label="現場ヒーロー画像">
-    <picture>
-      <img src="assets/img/hero/aerial.jpg"
-           alt="山北第4改良工事の現場空撮写真。工事延長350mの工区全景。"
-           loading="eager"
-           width="1600" height="900" />
-    </picture>
+    <div class="hero__stage" id="hero-stage">
+      <!-- main.js が data/hero.json から生成 -->
+    </div>
     <div class="hero__caption">
-      <p class="hero__label">CONSTRUCTION SITE</p>
+      <p class="hero__label" id="hero-label">CONSTRUCTION SITE</p>
       <p class="hero__period" id="hero-period">工期 ―― 取得中</p>
     </div>
+    <div class="hero__dots" id="hero-dots" aria-label="ヒーロー画像切替"></div>
     <div class="hero__scroll" aria-hidden="true">SCROLL</div>
   </section>
 
@@ -175,8 +174,34 @@
           <!-- main.js が data/progress.json を読んで生成 -->
         </div>
 
+        <div class="gallery-tabs reveal" data-delay="3" id="gallery-tabs" role="tablist">
+          <!-- main.js が data/photos.json から月別タブを生成 -->
+        </div>
         <div class="gallery reveal" data-delay="3" id="gallery" role="list">
-          <!-- main.js が data/photos.json を読んで生成 -->
+          <!-- main.js が data/photos.json から選択月のアルバムを描画 -->
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--team" id="team">
+      <div class="container">
+        <h2 class="section__title reveal">
+          <span class="section__num">// 05</span>施工体制・現場事務所
+        </h2>
+        <p class="section__lead reveal" data-delay="1" id="team-message">
+          <!-- main.js が data/team.json から生成 -->
+        </p>
+
+        <div class="team-grid reveal" data-delay="2" id="team-grid">
+          <!-- main.js が data/team.json members[] から生成 -->
+        </div>
+
+        <div class="team-office reveal" data-delay="3" id="team-office">
+          <!-- main.js が data/team.json office から生成 -->
+        </div>
+
+        <div class="team-commitments reveal" data-delay="3" id="team-commitments">
+          <!-- main.js が data/team.json commitments[] から生成 -->
         </div>
       </div>
     </section>
@@ -184,7 +209,7 @@
     <section class="section section--news" id="news">
       <div class="container">
         <h2 class="section__title reveal">
-          <span class="section__num">// 05</span>お知らせ
+          <span class="section__num">// 06</span>お知らせ
         </h2>
         <p class="section__lead reveal" data-delay="1">
           近隣の皆様へお知らせする工事連絡・通行規制・夜間作業等の情報を掲載します。
@@ -203,7 +228,7 @@
     <section class="section section--contact" id="contact">
       <div class="container">
         <h2 class="section__title reveal">
-          <span class="section__num">// 06</span>お問い合わせ
+          <span class="section__num">// 07</span>お問い合わせ
         </h2>
         <p class="section__lead reveal" data-delay="1">
           工事に関するご質問・ご相談は下記までお気軽にご連絡ください。

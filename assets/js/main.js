@@ -94,20 +94,72 @@
     `;
   }
 
-  /* ---- Render: Gallery ---- */
-  function renderGallery(data) {
-    const gallery = $('#gallery');
-    if (!gallery) return;
-    if (!data || !Array.isArray(data.albums) || data.albums.length === 0) {
-      gallery.innerHTML = '<p>写真を準備中です。</p>';
+  /* ---- Render: Hero slideshow ---- */
+  let heroTimer = null;
+  function renderHero(data) {
+    const stage = $('#hero-stage');
+    const dotsEl = $('#hero-dots');
+    const labelEl = $('#hero-label');
+    if (!stage) return;
+
+    const slides = data?.slides || [];
+    if (slides.length === 0) {
+      stage.innerHTML = '';
       return;
     }
-    const album = data.albums[data.albums.length - 1];
+
+    stage.innerHTML = slides.map((s, i) => `
+      <picture class="hero__slide ${i === 0 ? 'is-active' : ''}" data-index="${i}">
+        <img src="${escapeHtml(s.src)}"
+             alt="${escapeHtml(s.alt || '現場写真')}"
+             loading="${i === 0 ? 'eager' : 'lazy'}"
+             width="1600" height="900" />
+      </picture>
+    `).join('');
+
+    if (dotsEl) {
+      dotsEl.innerHTML = slides.map((_, i) =>
+        `<button type="button" class="hero__dot ${i === 0 ? 'is-active' : ''}" data-index="${i}" aria-label="スライド ${i + 1}"></button>`
+      ).join('');
+    }
+
+    const picEls = $$('.hero__slide', stage);
+    const dotEls = dotsEl ? $$('.hero__dot', dotsEl) : [];
+    let current = 0;
+
+    function go(idx) {
+      current = (idx + slides.length) % slides.length;
+      picEls.forEach((el, i) => el.classList.toggle('is-active', i === current));
+      dotEls.forEach((d, i) => d.classList.toggle('is-active', i === current));
+      if (labelEl) labelEl.textContent = slides[current].label || 'CONSTRUCTION SITE';
+    }
+
+    dotEls.forEach((d) => d.addEventListener('click', () => {
+      go(Number(d.dataset.index));
+      restart();
+    }));
+
+    function tick() { go(current + 1); }
+    function restart() {
+      if (heroTimer) clearInterval(heroTimer);
+      heroTimer = setInterval(tick, data.intervalMs || 6500);
+    }
+    restart();
+
+    go(0);
+  }
+
+  /* ---- Render: Gallery with month tabs ---- */
+  let galleryAlbums = [];
+  let galleryActiveMonth = '';
+
+  function renderGalleryAlbum(album) {
+    const gallery = $('#gallery');
+    if (!gallery) return;
     if (!album || !Array.isArray(album.items) || album.items.length === 0) {
       gallery.innerHTML = '<p>写真を準備中です。</p>';
       return;
     }
-
     gallery.innerHTML = album.items.map((p) => `
       <button type="button" class="gallery__item"
               data-src="${escapeHtml(p.src)}"
@@ -122,6 +174,46 @@
     $$('.gallery__item', gallery).forEach(btn => {
       btn.addEventListener('click', () => openLightbox(btn.dataset.src, btn.dataset.caption));
     });
+  }
+
+  function renderGallery(data) {
+    const tabsEl = $('#gallery-tabs');
+    const gallery = $('#gallery');
+    if (!gallery || !tabsEl) return;
+
+    if (!data || !Array.isArray(data.albums) || data.albums.length === 0) {
+      tabsEl.innerHTML = '';
+      gallery.innerHTML = '<p>写真を準備中です。</p>';
+      return;
+    }
+
+    galleryAlbums = data.albums.slice().sort((a, b) => (b.month || '').localeCompare(a.month || ''));
+    galleryActiveMonth = galleryAlbums[0]?.month || '';
+
+    tabsEl.innerHTML = galleryAlbums.map((alb) => `
+      <button type="button" class="gallery-tab ${alb.month === galleryActiveMonth ? 'is-active' : ''}"
+              data-month="${escapeHtml(alb.month)}" role="tab"
+              aria-selected="${alb.month === galleryActiveMonth ? 'true' : 'false'}">
+        <span class="gallery-tab__label">${escapeHtml(alb.label || alb.month)}</span>
+        <span class="gallery-tab__count">${alb.items?.length || 0}枚</span>
+      </button>
+    `).join('');
+
+    $$('.gallery-tab', tabsEl).forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const month = btn.dataset.month;
+        galleryActiveMonth = month;
+        $$('.gallery-tab', tabsEl).forEach((b) => {
+          const on = b.dataset.month === month;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        const album = galleryAlbums.find((a) => a.month === month);
+        renderGalleryAlbum(album);
+      });
+    });
+
+    renderGalleryAlbum(galleryAlbums[0]);
   }
 
   /* ---- Render: News + Signage ---- */
@@ -168,6 +260,60 @@
           btn.addEventListener('click', () => openLightbox(btn.dataset.src, btn.dataset.caption));
         });
       }
+    }
+  }
+
+  /* ---- Render: Team / Office ---- */
+  function renderTeam(data) {
+    if (!data) return;
+
+    const msg = $('#team-message');
+    if (msg && data.message) msg.textContent = data.message;
+
+    const grid = $('#team-grid');
+    if (grid && Array.isArray(data.members)) {
+      grid.innerHTML = data.members.map((m, i) => {
+        const initial = (m.name || '').trim().charAt(0) || '?';
+        return `
+          <article class="team-card">
+            <span class="team-card__no">M${String(i + 1).padStart(2, '0')}</span>
+            <div class="team-card__avatar" aria-hidden="true">${escapeHtml(initial)}</div>
+            <div class="team-card__body">
+              <p class="team-card__tag">${escapeHtml(m.tagEn || '')}</p>
+              <p class="team-card__role">${escapeHtml(m.role || '')}</p>
+              <p class="team-card__name">${escapeHtml(m.name || '')}</p>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    const office = $('#team-office');
+    if (office && data.office) {
+      const o = data.office;
+      office.innerHTML = `
+        <div class="office-card">
+          <div class="office-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="32" height="32"><path d="M12 2 L21 9 V21 H3 V9 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 21 V14 H15 V21" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <div class="office-card__body">
+            <p class="office-card__tag">SITE OFFICE</p>
+            <h3 class="office-card__name">${escapeHtml(o.name || '')}</h3>
+            <p class="office-card__address">${escapeHtml(o.address || '')}</p>
+            ${o.hours ? `<p class="office-card__hours">${escapeHtml(o.hours)}</p>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    const com = $('#team-commitments');
+    if (com && Array.isArray(data.commitments)) {
+      com.innerHTML = data.commitments.map((c) => `
+        <div class="commitment">
+          <h4 class="commitment__title">${escapeHtml(c.title)}</h4>
+          <p class="commitment__body">${escapeHtml(c.body)}</p>
+        </div>
+      `).join('');
     }
   }
 
@@ -397,21 +543,25 @@
 
     setupLightbox();
 
-    const [project, progress, photos, news, vision, dump] = await Promise.all([
+    const [project, progress, photos, news, vision, dump, hero, team] = await Promise.all([
       loadJSON('data/project.json'),
       loadJSON('data/progress.json'),
       loadJSON('data/photos.json'),
       loadJSON('data/news.json'),
       loadJSON('data/vision.json'),
       loadJSON('data/dump.json'),
+      loadJSON('data/hero.json'),
+      loadJSON('data/team.json'),
     ]);
 
+    renderHero(hero);
     renderProject(project);
     renderProgress(progress);
     renderGallery(photos);
     renderNews(news);
     renderVision(vision);
     renderDump(dump);
+    renderTeam(team);
 
     requestAnimationFrame(setupReveal);
   }
