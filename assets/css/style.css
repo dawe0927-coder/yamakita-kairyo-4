@@ -668,6 +668,41 @@ button {
   font-size: 1.2rem;
 }
 
+.progress-card__stage {
+  margin: 0;
+  padding: 4px 14px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.progress-card__body {
+  margin: 0 0 16px;
+  line-height: 1.85;
+  color: var(--text);
+}
+
+.progress-card__next {
+  margin: 0 0 6px;
+  padding: 14px 18px;
+  background: #F5F2EB;
+  border-left: 3px solid var(--orange);
+  border-radius: 4px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.progress-card__next span {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 0.92rem;
+}
+
 .progress-bar {
   height: 14px;
   overflow: hidden;

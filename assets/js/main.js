@@ -87,17 +87,13 @@
       card.innerHTML = '<p>進捗情報を準備中です。</p>';
       return;
     }
-    const pct = Math.max(0, Math.min(100, Number(data.overall) || 0));
     card.innerHTML = `
       <div class="progress-card__head">
-        <p class="progress-card__label">全体進捗</p>
-        <div class="progress-card__value">${pct}<span class="progress-card__value-unit">%</span></div>
+        <p class="progress-card__label">主な作業状況</p>
+        ${data.stage ? `<p class="progress-card__stage">${escapeHtml(data.stage)}</p>` : ''}
       </div>
-      <div class="progress-bar" role="progressbar"
-           aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"
-           aria-label="工事全体進捗">
-        <div class="progress-bar__fill" data-target-width="${pct}" style="width:0"></div>
-      </div>
+      ${data.current_work ? `<p class="progress-card__body">${escapeHtml(data.current_work)}</p>` : ''}
+      ${data.next_work ? `<p class="progress-card__next"><span>このあとの予定</span>${escapeHtml(data.next_work)}</p>` : ''}
       <p class="progress-asof">${data.asOf ? `${formatDateJP(data.asOf)}現在` : ''}</p>
     `;
   }
