@@ -17,7 +17,8 @@
   "highlights": [
     { "label": "工事延長", "value": "350", "unit": "m", "note": "山北地内の施工区間" },
     { "label": "掘削土量", "value": "42,330", "unit": "m³", "note": "山岳部切土・掘削工" },
-    { "label": "工期", "value": "約7か月", "unit": "", "note": "令和8年3月〜9月" }
+    { "label": "工期", "value": "約7か月", "unit": "", "note": "令和8年3月〜9月" },
+    { "label": "主な使用機械", "value": "10tダンプ", "unit": "", "note": "最大30台が出入りします" }
   ],
   "contact": {
     "manager": "田中 大（現場代理人）",
