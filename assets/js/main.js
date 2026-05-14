@@ -8,12 +8,12 @@
     if (!iso) return '';
     const d = new Date(iso);
     if (Number.isNaN(d.getTime())) return iso;
-    return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+    return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
   };
 
   const formatTermJP = (term) => {
     if (!term || !term.start || !term.end) return '';
-    return `${formatDateJP(term.start)} ─ ${formatDateJP(term.end)}`;
+    return `${formatDateJP(term.start)}から${formatDateJP(term.end)}まで`;
   };
 
   const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
@@ -31,40 +31,33 @@
     }
   }
 
-  /* ---- Render: Project ---- */
   function renderProject(data) {
     if (!data) return;
 
     const heroPeriod = $('#hero-period');
-    if (heroPeriod) heroPeriod.textContent = `工期 ${formatTermJP(data.term)}`;
+    if (heroPeriod) heroPeriod.textContent = `工期　${formatTermJP(data.term)}`;
 
     const statsEl = $('#about-stats');
     if (statsEl && Array.isArray(data.highlights)) {
-      statsEl.innerHTML = data.highlights.map((h) => {
-        const numeric = String(h.value).replace(/[^\d.\-]/g, '');
-        const isNumeric = numeric !== '' && !Number.isNaN(Number(numeric));
-        const countAttr = isNumeric ? `data-count="${numeric}" data-format="${String(h.value).includes(',') ? '0,0' : ''}"` : '';
-        const displayValue = isNumeric ? '0' : escapeHtml(h.value);
-        return `
-          <div class="stat-card">
-            <p class="stat-card__label">${escapeHtml(h.label || '')}</p>
-            <p class="stat-card__value" ${countAttr}>${displayValue}${h.unit ? `<span class="stat-card__unit">${escapeHtml(h.unit)}</span>` : ''}</p>
-            <p class="stat-card__note">${escapeHtml(h.note || '')}</p>
-          </div>
-        `;
-      }).join('');
+      statsEl.innerHTML = data.highlights.map((h) => `
+        <div class="stat-card">
+          <p class="stat-card__label">${escapeHtml(h.label || '')}</p>
+          <p class="stat-card__value">${escapeHtml(h.value || '')}${h.unit ? `<span class="stat-card__unit">${escapeHtml(h.unit)}</span>` : ''}</p>
+          <p class="stat-card__note">${escapeHtml(h.note || '')}</p>
+        </div>
+      `).join('');
     }
 
     const aboutList = $('#about-list');
     if (aboutList) {
       const rows = [
-        ['工事名',     data.name],
-        ['発注者',     data.client],
-        ['施工',       data.contractor],
-        ['工事場所',   data.location],
-        ['工期',       formatTermJP(data.term)],
-        ['工事概要',   data.summary],
-        ['主な工種',   Array.isArray(data.main_works) ? `<ul class="about-list__bullets">${data.main_works.map(w => `<li>${escapeHtml(w)}</li>`).join('')}</ul>` : ''],
+        ['工事名', data.name],
+        ['発注者', data.client],
+        ['施工', data.contractor],
+        ['工事場所', data.location],
+        ['工期', formatTermJP(data.term)],
+        ['工事概要', data.summary],
+        ['主な工種', Array.isArray(data.main_works) ? `<ul class="about-list__bullets">${data.main_works.map(w => `<li>${escapeHtml(w)}</li>`).join('')}</ul>` : ''],
       ].filter(([, v]) => v);
 
       aboutList.innerHTML = rows
@@ -81,13 +74,12 @@
         <p class="contact-card__manager">本工事 現場代理人：${escapeHtml(c.manager || '')}</p>
         ${c.phone ? `<a class="contact-card__tel" href="tel:${escapeHtml(telDigits)}">${escapeHtml(c.phone)}</a>` : ''}
         <p class="contact-card__link">
-          <a href="https://koujigumi.jp/" target="_blank" rel="noopener">鴻治組 公式サイト（別ウィンドウで開きます）</a>
+          <a href="https://koujigumi.jp/" target="_blank" rel="noopener">鴻治組 公式サイトを開く</a>
         </p>
       `;
     }
   }
 
-  /* ---- Render: Progress ---- */
   function renderProgress(data) {
     const card = $('#progress-card');
     if (!card) return;
@@ -98,21 +90,18 @@
     const pct = Math.max(0, Math.min(100, Number(data.overall) || 0));
     card.innerHTML = `
       <div class="progress-card__head">
-        <p class="progress-card__label">OVERALL PROGRESS</p>
-        <div class="progress-card__value" data-count="${pct}" data-suffix="%">
-          0<span class="progress-card__value-unit">%</span>
-        </div>
+        <p class="progress-card__label">全体進捗</p>
+        <div class="progress-card__value">${pct}<span class="progress-card__value-unit">%</span></div>
       </div>
       <div class="progress-bar" role="progressbar"
            aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"
            aria-label="工事全体進捗">
         <div class="progress-bar__fill" data-target-width="${pct}" style="width:0"></div>
       </div>
-      <p class="progress-asof">${data.asOf ? 'AS OF ' + formatDateJP(data.asOf) : ''}</p>
+      <p class="progress-asof">${data.asOf ? `${formatDateJP(data.asOf)}現在` : ''}</p>
     `;
   }
 
-  /* ---- Render: Hero slideshow ---- */
   let heroTimer = null;
   function renderHero(data) {
     const stage = $('#hero-stage');
@@ -137,7 +126,7 @@
 
     if (dotsEl) {
       dotsEl.innerHTML = slides.map((_, i) =>
-        `<button type="button" class="hero__dot ${i === 0 ? 'is-active' : ''}" data-index="${i}" aria-label="スライド ${i + 1}"></button>`
+        `<button type="button" class="hero__dot ${i === 0 ? 'is-active' : ''}" data-index="${i}" aria-label="写真 ${i + 1}を表示"></button>`
       ).join('');
     }
 
@@ -149,7 +138,7 @@
       current = (idx + slides.length) % slides.length;
       picEls.forEach((el, i) => el.classList.toggle('is-active', i === current));
       dotEls.forEach((d, i) => d.classList.toggle('is-active', i === current));
-      if (labelEl) labelEl.textContent = slides[current].label || 'CONSTRUCTION SITE';
+      if (labelEl) labelEl.textContent = slides[current].label || '現場写真';
     }
 
     dotEls.forEach((d) => d.addEventListener('click', () => {
@@ -163,11 +152,9 @@
       heroTimer = setInterval(tick, data.intervalMs || 6500);
     }
     restart();
-
     go(0);
   }
 
-  /* ---- Render: Milestone strip ---- */
   function renderMilestoneStrip(data) {
     const strip = $('#milestone-strip');
     if (!strip) return;
@@ -180,8 +167,8 @@
       <button type="button" class="milestone"
               data-src="${escapeHtml(p.src)}"
               data-caption="${escapeHtml(p.caption || '')}"
-              aria-label="拡大: ${escapeHtml(p.caption || '写真')}">
-        <span class="milestone__tag">${escapeHtml(p.tag || 'PHOTO')}</span>
+              aria-label="写真を拡大表示: ${escapeHtml(p.caption || '現場写真')}">
+        ${p.tag ? `<span class="milestone__tag">${escapeHtml(p.tag)}</span>` : ''}
         <img src="${escapeHtml(p.thumb || p.src)}" alt="${escapeHtml(p.caption || '')}" loading="lazy" />
         <div class="milestone__meta">
           <span class="milestone__date">${escapeHtml(formatDateJP(p.date))}</span>
@@ -195,7 +182,6 @@
     });
   }
 
-  /* ---- Render: Weekly progress ---- */
   function renderWeekly(data) {
     const list = $('#weekly-list');
     const src = $('#weekly-source');
@@ -211,7 +197,7 @@
     list.innerHTML = weeks.map((w, idx) => `
       <article class="weekly ${idx === 0 ? 'is-latest' : ''}">
         <div class="weekly__meta">
-          ${idx === 0 ? '<span class="weekly__badge">LATEST</span>' : ''}
+          ${idx === 0 ? '<span class="weekly__badge">最新</span>' : ''}
           <p class="weekly__range">${escapeHtml(w.label || w.range || '')}</p>
           <h4 class="weekly__title">${escapeHtml(w.title || '')}</h4>
           <ul class="weekly__bullets">
@@ -222,7 +208,7 @@
         <button type="button" class="weekly__img"
                 data-src="${escapeHtml(w.img)}"
                 data-caption="${escapeHtml(w.title || '')}"
-                aria-label="拡大: ${escapeHtml(w.title || '写真')}">
+                aria-label="写真を拡大表示: ${escapeHtml(w.title || '現場写真')}">
           <img src="${escapeHtml(w.img)}" alt="${escapeHtml(w.title || '')}" loading="lazy" />
         </button>` : ''}
       </article>
@@ -233,7 +219,6 @@
     });
   }
 
-  /* ---- Render: News + Signage ---- */
   function renderNews(data) {
     const list = $('#news-list');
     const strip = $('#signage-strip');
@@ -254,7 +239,7 @@
               <div>
                 <h3 class="news-item__title">${escapeHtml(n.title || '')}</h3>
                 ${n.body ? `<p class="news-item__body">${escapeHtml(n.body)}</p>` : ''}
-                ${n.pdf ? `<a class="news-item__pdf" href="${escapeHtml(n.pdf)}" target="_blank" rel="noopener">関連PDFを開く →</a>` : ''}
+                ${n.pdf ? `<a class="news-item__pdf" href="${escapeHtml(n.pdf)}" target="_blank" rel="noopener">関連PDFを開く</a>` : ''}
               </div>
             </article>
           `).join('');
@@ -269,7 +254,7 @@
           <button type="button" class="signage-card"
                   data-src="${escapeHtml(s.src)}"
                   data-caption="${escapeHtml(s.caption || '')}">
-            <span class="signage-card__label">${escapeHtml(s.label || 'NOTICE')}</span>
+            ${s.label ? `<span class="signage-card__label">${escapeHtml(s.label)}</span>` : ''}
             <img src="${escapeHtml(s.src)}" alt="${escapeHtml(s.caption || '掲示物')}" loading="lazy" />
           </button>
         `).join('');
@@ -280,7 +265,6 @@
     }
   }
 
-  /* ---- Render: Team / Office ---- */
   function renderTeam(data) {
     if (!data) return;
 
@@ -289,14 +273,12 @@
 
     const grid = $('#team-grid');
     if (grid && Array.isArray(data.members)) {
-      grid.innerHTML = data.members.map((m, i) => {
+      grid.innerHTML = data.members.map((m) => {
         const initial = (m.name || '').trim().charAt(0) || '?';
         return `
           <article class="team-card">
-            <span class="team-card__no">M${String(i + 1).padStart(2, '0')}</span>
             <div class="team-card__avatar" aria-hidden="true">${escapeHtml(initial)}</div>
             <div class="team-card__body">
-              <p class="team-card__tag">${escapeHtml(m.tagEn || '')}</p>
               <p class="team-card__role">${escapeHtml(m.role || '')}</p>
               <p class="team-card__name">${escapeHtml(m.name || '')}</p>
             </div>
@@ -314,7 +296,7 @@
             <svg viewBox="0 0 24 24" width="32" height="32"><path d="M12 2 L21 9 V21 H3 V9 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 21 V14 H15 V21" fill="none" stroke="currentColor" stroke-width="2"/></svg>
           </div>
           <div class="office-card__body">
-            <p class="office-card__tag">SITE OFFICE</p>
+            <p class="office-card__tag">現場事務所</p>
             <h3 class="office-card__name">${escapeHtml(o.name || '')}</h3>
             <p class="office-card__address">${escapeHtml(o.address || '')}</p>
             ${o.hours ? `<p class="office-card__hours">${escapeHtml(o.hours)}</p>` : ''}
@@ -334,7 +316,6 @@
     }
   }
 
-  /* ---- Render: Dump traffic management ---- */
   const DUMP_ICONS = {
     speed: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 12 L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>',
     water: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 C8 9 6 13 6 16 a6 6 0 0 0 12 0 C18 13 16 9 12 3 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
@@ -360,18 +341,17 @@
           <p class="dump-alert__headline">${escapeHtml(data.headline)}</p>
           ${data.vehicle ? `
             <ul class="dump-alert__meta">
-              <li><span>VEHICLE</span>${escapeHtml(data.vehicle.type || '')}</li>
-              <li><span>FLEET</span>${escapeHtml(data.vehicle.count || '')}</li>
-              <li><span>FREQ</span>${escapeHtml(data.vehicle.freq || '')}</li>
+              <li><span>車両</span>${escapeHtml(data.vehicle.type || '')}</li>
+              <li><span>台数</span>${escapeHtml(data.vehicle.count || '')}</li>
+              <li><span>頻度</span>${escapeHtml(data.vehicle.freq || '')}</li>
             </ul>` : ''}
         </div>
       `;
     }
 
     if (rulesEl && Array.isArray(data.rules)) {
-      rulesEl.innerHTML = data.rules.map((r, i) => `
+      rulesEl.innerHTML = data.rules.map((r) => `
         <article class="rule-card">
-          <span class="rule-card__no">${String(i + 1).padStart(2, '0')}</span>
           <span class="rule-card__icon" aria-hidden="true">${DUMP_ICONS[r.icon] || ''}</span>
           <h4 class="rule-card__title">${escapeHtml(r.title)}</h4>
           <p class="rule-card__body">${escapeHtml(r.body)}</p>
@@ -386,7 +366,7 @@
                 data-caption="${escapeHtml(data.map.caption || 'ダンプ運行ルート')}"
                 aria-label="運行ルート図を拡大表示">
           <img src="${escapeHtml(data.map.src)}" alt="${escapeHtml(data.map.caption || '運行ルート図')}" loading="lazy" />
-          <span class="dump-map__zoom">CLICK TO ZOOM</span>
+          <span class="dump-map__zoom">拡大表示</span>
         </button>
         ${data.map.caption ? `<figcaption class="dump-map__caption">${escapeHtml(data.map.caption)}</figcaption>` : ''}
       `;
@@ -404,7 +384,6 @@
     }
   }
 
-  /* ---- Render: Vision slider ---- */
   let visionTimer = null;
 
   function renderVision(data) {
@@ -414,7 +393,7 @@
 
     const items = data?.items || [];
     if (items.length === 0) {
-      track.innerHTML = '<div style="aspect-ratio:16/8;display:flex;align-items:center;justify-content:center;color:#7A82A1;">完成イメージを準備中です。</div>';
+      track.innerHTML = '<div class="slider__empty">完成イメージを準備中です。</div>';
       return;
     }
 
@@ -426,7 +405,7 @@
     `).join('');
 
     controls.innerHTML = items.map((_, i) =>
-      `<button type="button" class="slider__dot ${i === 0 ? 'is-active' : ''}" data-index="${i}" aria-label="スライド ${i + 1}"></button>`
+      `<button type="button" class="slider__dot ${i === 0 ? 'is-active' : ''}" data-index="${i}" aria-label="完成イメージ ${i + 1}を表示"></button>`
     ).join('');
 
     const slides = $$('.slider__slide', track);
@@ -461,35 +440,6 @@
     });
   }
 
-  /* ---- Count-up animation ---- */
-  function animateCount(el, target, duration = 1600) {
-    const startTime = performance.now();
-    const unit = el.querySelector('.stat-card__unit, .progress-card__value-unit');
-    const unitHTML = unit ? unit.outerHTML : '';
-    const format = el.dataset.format === '0,0'
-      ? (n) => n.toLocaleString('en-US')
-      : (n) => String(n);
-
-    function frame(now) {
-      const t = Math.min(1, (now - startTime) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
-      const value = Math.round(target * eased);
-      el.firstChild ? (el.innerHTML = format(value) + unitHTML) : null;
-      if (t < 1) requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  }
-
-  function setupCounters(root = document) {
-    $$('[data-count]', root).forEach((el) => {
-      if (el.dataset._counted) return;
-      el.dataset._counted = '1';
-      const target = Number(el.dataset.count) || 0;
-      animateCount(el, target);
-    });
-  }
-
-  /* ---- Progress bar fill on reveal ---- */
   function fillProgressBar(root = document) {
     $$('.progress-bar__fill', root).forEach((bar) => {
       const target = Number(bar.dataset.targetWidth) || 0;
@@ -499,12 +449,10 @@
     });
   }
 
-  /* ---- IntersectionObserver: reveal + count + progress ---- */
   function setupReveal() {
     const els = $$('.reveal');
     if (!('IntersectionObserver' in window)) {
       els.forEach((el) => el.classList.add('is-visible'));
-      setupCounters();
       fillProgressBar();
       return;
     }
@@ -514,16 +462,14 @@
         if (!entry.isIntersecting) return;
         const el = entry.target;
         el.classList.add('is-visible');
-        setupCounters(el);
         fillProgressBar(el);
         io.unobserve(el);
       });
-    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
 
     els.forEach((el) => io.observe(el));
   }
 
-  /* ---- Lightbox ---- */
   function openLightbox(src, caption) {
     const box = $('#lightbox');
     if (!box) return;
@@ -553,7 +499,6 @@
     });
   }
 
-  /* ---- Init ---- */
   async function init() {
     const year = $('#copy-year');
     if (year) year.textContent = new Date().getFullYear();

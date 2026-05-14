@@ -1,9 +1,9 @@
 {
   "intervalMs": 6500,
   "slides": [
-    { "src": "assets/img/hero/hero_04_apr.jpg",       "label": "AERIAL", "alt": "工区全景の空撮（令和8年4月28日）" },
-    { "src": "assets/img/hero/hero_03_signboard.jpg", "label": "MILESTONE", "alt": "工事看板設置完了（令和8年4月24日）" },
-    { "src": "assets/img/hero/hero_02_cut.jpg",       "label": "CLEARING", "alt": "伐採状況（令和8年4月20日）" },
-    { "src": "assets/img/hero/hero_01_pre.jpg",       "label": "START",  "alt": "着工前の現場全景（令和8年3月2日）" }
+    { "src": "assets/img/hero/hero_04_apr.jpg", "label": "工区全景", "alt": "工区全景の空撮（令和8年4月28日）" },
+    { "src": "assets/img/hero/hero_03_signboard.jpg", "label": "工事看板", "alt": "工事看板設置完了（令和8年4月24日）" },
+    { "src": "assets/img/hero/hero_02_cut.jpg", "label": "伐採状況", "alt": "伐採状況（令和8年4月20日）" },
+    { "src": "assets/img/hero/hero_01_pre.jpg", "label": "着工前", "alt": "着工前の現場全景（令和8年3月2日）" }
   ]
 }

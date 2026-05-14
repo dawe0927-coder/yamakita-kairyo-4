@@ -2,11 +2,11 @@
   "updated": "2026-04-28",
   "label": "現場記録（空撮ベース）",
   "items": [
-    { "date": "2026-03-02", "src": "assets/img/progress/2026-03-02/main.jpg", "thumb": "assets/img/progress/2026-03-02/thumb.jpg", "caption": "着工前 工区全景", "tag": "MILESTONE" },
-    { "date": "2026-03-31", "src": "assets/img/progress/2026-03-31/main.jpg", "thumb": "assets/img/progress/2026-03-31/thumb.jpg", "caption": "根株調査",       "tag": "SURVEY"    },
-    { "date": "2026-04-03", "src": "assets/img/progress/2026-04-03/main.jpg", "thumb": "assets/img/progress/2026-04-03/thumb.jpg", "caption": "3月履行報告 空撮", "tag": "REPORT"    },
-    { "date": "2026-04-20", "src": "assets/img/progress/2026-04-20/main.jpg", "thumb": "assets/img/progress/2026-04-20/thumb.jpg", "caption": "伐採状況",       "tag": "CLEARING"  },
-    { "date": "2026-04-24", "src": "assets/img/progress/2026-04-24/main.jpg", "thumb": "assets/img/progress/2026-04-24/thumb.jpg", "caption": "工事看板設置完了", "tag": "MILESTONE" },
-    { "date": "2026-04-28", "src": "assets/img/progress/2026-04-28/main.jpg", "thumb": "assets/img/progress/2026-04-28/thumb.jpg", "caption": "4月履行報告 空撮", "tag": "REPORT"    }
+    { "date": "2026-03-02", "src": "assets/img/progress/2026-03-02/main.jpg", "thumb": "assets/img/progress/2026-03-02/thumb.jpg", "caption": "着工前 工区全景", "tag": "着工前" },
+    { "date": "2026-03-31", "src": "assets/img/progress/2026-03-31/main.jpg", "thumb": "assets/img/progress/2026-03-31/thumb.jpg", "caption": "根株調査", "tag": "調査" },
+    { "date": "2026-04-03", "src": "assets/img/progress/2026-04-03/main.jpg", "thumb": "assets/img/progress/2026-04-03/thumb.jpg", "caption": "3月履行報告 空撮", "tag": "履行報告" },
+    { "date": "2026-04-20", "src": "assets/img/progress/2026-04-20/main.jpg", "thumb": "assets/img/progress/2026-04-20/thumb.jpg", "caption": "伐採状況", "tag": "伐採" },
+    { "date": "2026-04-24", "src": "assets/img/progress/2026-04-24/main.jpg", "thumb": "assets/img/progress/2026-04-24/thumb.jpg", "caption": "工事看板設置完了", "tag": "看板設置" },
+    { "date": "2026-04-28", "src": "assets/img/progress/2026-04-28/main.jpg", "thumb": "assets/img/progress/2026-04-28/thumb.jpg", "caption": "4月履行報告 空撮", "tag": "履行報告" }
   ]
 }

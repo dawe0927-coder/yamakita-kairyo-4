@@ -19,13 +19,13 @@
   "signage": [
     {
       "src": "assets/img/signage/oshirase_main.jpg",
-      "label": "OFFICIAL NOTICE",
+      "label": "工事のお知らせ",
       "caption": "工事のお知らせ（住民配布版・サイネージ用）"
     },
     {
       "src": "assets/img/signage/oshirase_alt.jpg",
-      "label": "SITE BOARD",
-      "caption": "現場掲示板 — 工事概要"
+      "label": "現場掲示板",
+      "caption": "現場掲示板・工事概要"
     }
   ]
 }

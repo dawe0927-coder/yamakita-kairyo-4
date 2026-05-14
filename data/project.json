@@ -6,19 +6,19 @@
   "location": "広島県福山市瀬戸町山北地内",
   "length_m": 350,
   "excavation_m3": 42330,
-  "summary": "国道2号バイパス「福山道路」として整備が進められている山岳部の道路改良工事です。3次元設計データ（BIM/CIM）と ICT建機（段階4）を活用し、安全と品質を最優先に施工しています。",
+  "summary": "国道2号バイパス「福山道路」として整備が進められている山岳部の道路改良工事です。3次元設計データ（BIM/CIM）とICT建機を活用し、安全と品質を最優先に施工しています。",
   "main_works": [
     "道路土工（山岳部切土・掘削工 V=42,330m³）",
     "構造物撤去工",
     "仮設工（交通管理工含む）",
-    "BIM/CIM 適用・ICT施工 段階4 活用",
+    "BIM/CIM適用・ICT施工段階4活用",
     "CCUS活用推進モデル工事 / 週休2日（月単位4週8休）"
   ],
   "highlights": [
-    { "label": "SECTION LENGTH", "value": "350",    "unit": "m",   "note": "工事延長" },
-    { "label": "EXCAVATION",    "value": "42,330", "unit": "m³",  "note": "掘削土量" },
-    { "label": "ICT LEVEL",     "value": "4",      "unit": "/ 5", "note": "ICT施工段階" },
-    { "label": "BIM/CIM LOD",   "value": "200-300","unit": "",    "note": "3次元モデル詳細度" }
+    { "label": "工事延長", "value": "350", "unit": "m", "note": "山北地内の施工区間" },
+    { "label": "掘削土量", "value": "42,330", "unit": "m³", "note": "山岳部切土・掘削工" },
+    { "label": "ICT施工", "value": "段階4", "unit": "", "note": "ICT建機を活用" },
+    { "label": "3次元モデル", "value": "200〜300", "unit": "", "note": "詳細度の目安" }
   ],
   "contact": {
     "manager": "田中 大（現場代理人）",
